@@ -1,25 +1,21 @@
-import logo from './logo.svg';
+import React, { useState, useEffect } from 'react';
 import './App.css';
+import axios from 'axios';
 
-function App() {
+const App = () => {
+  const [pokemones, setPokemones] = useState(null);
+  useEffect(() => {
+    axios
+      .get('https://api.pokemontcg.io/v1/cards')
+      .then((resp) => setPokemones(resp.data));
+  }, []);
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {pokemones?.cards?.map(() => (
+        <div>Pokemon</div>
+      ))}
     </div>
   );
-}
+};
 
 export default App;
